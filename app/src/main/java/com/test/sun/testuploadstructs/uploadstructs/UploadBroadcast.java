@@ -30,10 +30,10 @@ public class UploadBroadcast extends BroadcastReceiver {
          *
          * */
 
-        if (checkUserAct(context)) {
+        if (CheckUtils.checkUserAct(context)) {
             return;
         }
-        if (!checkWifi(context)) {
+        if (!CheckUtils.checkWifi(context)) {
             return;
         }
         Log.i(TAG, ":startService");
@@ -41,29 +41,5 @@ public class UploadBroadcast extends BroadcastReceiver {
 
     }
 
-    private boolean checkWifi(Context context) {
-        Log.i(TAG, "UploadBroadcast:checkWifi----------------");
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
 
-    private boolean checkUserAct(Context context) {
-        Log.i(TAG, "UploadBroadcast:checkUserAct----------------");
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager.getRunningTasks(1).get(0).topActivity.getClassName().equals("com.test.sun.testuploadstructs.uploadstructs.UserActivity")) {
-            return true;
-        } else {
-            return false;
-        }
-//      显示所有打开的app的顶端activity
-//      当前显示的act永远在第一位
-//        List<ActivityManager.RunningTaskInfo> runningTasks = manager.getRunningTasks(100);
-//        for (ActivityManager.RunningTaskInfo runningTask : runningTasks) {
-//            Log.i(TAG, ":" + runningTask.topActivity.getClassName());
-//        }
-    }
 }

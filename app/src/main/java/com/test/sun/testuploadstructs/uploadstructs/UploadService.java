@@ -7,6 +7,8 @@ import android.util.Log;
 
 /**
  * Created by ZS27 on 2016/12/12.
+ * intentservice多次发生调用请求，会添加到队列中，依次完成
+ * 外部stopservice并不能终止service
  */
 
 public class UploadService extends IntentService {
@@ -41,13 +43,17 @@ public class UploadService extends IntentService {
 //            Log.i(TAG, ":sleep error");
 //        }
 
+        int i = 0;
         while (true) {
-            Log.i(TAG, "////////////running/////////////////");
             try {
                 Thread.sleep(5 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if (i > 3) {
+                break;
+            }
+            Log.i(TAG, "////////////running/////////////////" + " : " + (i++));
         }
     }
 

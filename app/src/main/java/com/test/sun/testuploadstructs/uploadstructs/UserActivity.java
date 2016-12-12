@@ -37,16 +37,6 @@ public class UserActivity extends AppCompatActivity {
         initView();
     }
 
-    private void checkService() {
-        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> runningServices = manager.getRunningServices(50);
-        for (ActivityManager.RunningServiceInfo runningService : runningServices) {
-            if (runningService.service.getClassName().equals("com.test.sun.testuploadstructs.uploadstructs.UploadService")) {
-                Log.i(TAG, "*********************service exists***************************");
-                break;
-            }
-        }
-    }
 
     private void initView() {
         LinearLayout inflate = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_main2_for_test, null);
@@ -83,7 +73,7 @@ public class UserActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "UserActivity:onStart----------------");
-        checkService();
+        CheckUtils.checkService(this);
     }
 
     @Override
